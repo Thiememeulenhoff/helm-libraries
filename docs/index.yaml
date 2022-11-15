@@ -2,14 +2,33 @@ apiVersion: v1
 entries:
   phplibrary:
   - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2022-11-15T08:59:40.351567+01:00"
+    appVersion: 1.0.1
+    created: "2022-11-15T09:47:40.552825+01:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
-    digest: 678e1e96078aa64988d681ae59de7b9b90463628fba2e67c5e0606fbce1d1c6e
+    digest: 1efa3a10f2a5774dc255713419b6b166b18fbb0478e49ae2362919215d48be6d
+    home: https://github.com/Thiememeulenhoff/helm-libraries
+    maintainers:
+    - email: youri.lefers@x-ip.nl
+      name: Youri Lefers
+    name: phplibrary
+    type: library
+    urls:
+    - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-11-15T09:47:40.550204+01:00"
+    description: A Helm library chart for common packages and PHP applications in
+      Kubernetes.
+    digest: a7dfbf7a0c4b64564a97e01ebbf7a303e77aa64cebe355aebeca4d27402bf8bd
+    home: https://github.com/Thiememeulenhoff/helm-libraries
+    maintainers:
+    - email: youri.lefers@x-ip.nl
+      name: Youri Lefers
     name: phplibrary
     type: library
     urls:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.0.tgz
     version: 1.0.0
-generated: "2022-11-15T08:59:40.347566+01:00"
+generated: "2022-11-15T09:47:40.545978+01:00"

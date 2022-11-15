@@ -7,7 +7,8 @@
 
 {{- define "phplibrary.phpDeployment.config" }}
 {{- $top := first . }}
-{{- $overrides := last . | default dict }}
+{{- $overrides := last . }}
+{{- $codeCopyEnabled := eq ($overrides.disableCodeCopy | default false) false }}
 name: application
 annotations:
     ad.datadoghq.com/php.check_names: '["php_fpm"]'
@@ -20,9 +21,11 @@ containers:
     {{- with $overrides.php | default (dict "" "") }}
     php:
         datadogSource: php
+        {{- if $codeCopyEnabled }}
         volumeMounts:
             code:
                 mountPath: /volume
+        {{- end }}
         command: ["/usr/local/sbin/php-fpm"]
         livenessProbe:
             tcpSocket:
@@ -48,9 +51,11 @@ containers:
             {{- end }}
         {{- end }}
         lifecycle:
+            {{- if $codeCopyEnabled }}
             postStart:
                 exec:
                     command: ["/bin/bash", "-c", "cp -r {{ .root | default "/var/www/application" }} /volume/application"]
+            {{- end }}
             preStop:
                 exec:
                     command: ["/bin/bash", "-c", "/bin/sleep 20; kill -QUIT 1"]
@@ -64,9 +69,11 @@ containers:
             tag: {{ .tag | default "1.22" }}
         {{- end }}
         volumeMounts:
+            {{- if $codeCopyEnabled }}
             code:
                 mountPath: /var/www
                 subPath: application
+            {{- end }}
             http-conf:
                 mountPath: /etc/nginx/conf.d/default.conf
                 name: nginx-configuration
@@ -84,8 +91,10 @@ containers:
                   command: ["/bin/sh", "-c", "sleep 20; /usr/sbin/nginx -s quit"]
     {{- end }}
 volumes:
+    {{- if $codeCopyEnabled }}
     code:
       emptyDir: {}
+    {{- end }}
     nginx-configuration:
         configMap:
             name: {{ include "phplibrary.util.configmapName" (list $top (dict "name" "nginx-configuration")) }}
