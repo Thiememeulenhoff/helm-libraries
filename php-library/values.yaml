@@ -1,0 +1,29 @@
+nameOverride: ""
+fullnameOverride: ""
+
+# The environment of the deployment
+environment: ""
+
+datadogSource: ~
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# Configuration environment based values
+configuration: {}
+
+datadog:
+  enabled: false
+
+volumeMounts: []
+
+volumes: []
+
+envFrom: []
+
+env: []
+
+securityContext:
+  fsGroup: ~
