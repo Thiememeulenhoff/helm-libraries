@@ -10,41 +10,58 @@ metadata:
     namespace: {{ $top.Release.Namespace }}
     labels: {{ include "phplibrary.labels" (merge (dict "name" $hpa.name) $top $hpa) | nindent 8 }}
 spec:
-    {{ with $hpa.target | default dict }}
-    scaleTargetRef:
-        apiVersion: {{ .apiVersion | default "apps/v1" }}
-        kind: {{ .kind | default "Deployment" }}
-        name: {{ .name | default ($hpa.name | default (include "phplibrary.name" $top)) }}
-    {{ end }}
+    {{- include "phplibrary.base.hpa.scaleTargetRef" (list $top $hpa) | nindent 4 -}}
+    {{- include "phplibrary.base.hpa.replicas" (list $top $hpa) | nindent 4 -}}
+    {{- include "phplibrary.base.hpa.metrics" (list $top $hpa) | nindent 4 -}}
+    {{- if $hpa.behavior }}{{ $hpa.behavior }}{{ end }}
+{{- end -}}
 
-    {{ with $hpa.replicas }}
-    minReplicas: {{ .min | default 1 }}
-    maxReplicas: {{ .max | default . }}
-    {{ end }}
+{{- define "phplibrary.base.hpa.scaleTargetRef" -}}
+{{- $top := first . }}
+{{- $hpa := index . 1 }}
+{{- with merge ($hpa.target | default dict) (dict "name" $hpa.name) }}
+scaleTargetRef:
+    apiVersion: {{ .apiVersion | default "apps/v1" }}
+    kind: {{ .kind | default "Deployment" }}
+    name: {{ .name | default (include "phplibrary.name" $top) }}
+{{- end }}
+{{- end -}}
 
-    {{ with $hpa.metrics | default list }}
-    metrics:
-        {{ range $metric := . }}
-        - type: {{ $metric.type | default "Resource" }}
-          {{ ($metric.type | default "Resource") | snakecase | lower | camelcase }}:
-              name: {{ $metric.name }}
-              target:
-                  {{ if $metric.utilization }}
-                  type: Utilization
-                  averageUtilization: {{ $metric.utilization }}
-                  {{ else if $metric.averageValue }}
-                  type: AverageValue
-                  averageValue: {{ $metric.averageValue }}
-                  {{ else if $metric.value }}
-                  type: Value
-                  value: {{ $metric.value }}
-                  {{ end }}
-        {{ end }}
-    {{ end }}
+{{- define "phplibrary.base.hpa.replicas" -}}
+{{- $top := first . }}
+{{- $hpa := index . 1 }}
+{{- with $hpa.replicas }}
+minReplicas: {{ .min | default 1 }}
+maxReplicas: {{ .max | default . }}
+{{- end -}}
+{{- end -}}
 
-    {{ if $hpa.behavior }}
-    {{ $hpa.behavior }}
-    {{ end }}
+{{- define "phplibrary.base.hpa.metrics" -}}
+{{- $top := first . }}
+{{- $hpa := index . 1 }}
+{{- range $metric := $hpa.metrics -}}
+metrics:
+  - type: {{ $metric.type | default "Resource" }}
+    {{- if eq ($metric.type | default "Resource") "Resource" -}}{{- include "phplibrary.base.hpa.metrics.resource" (list $top $metric) | nindent 4 -}}{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "phplibrary.base.hpa.metrics.resource" -}}
+{{- $top := first . -}}
+{{- $metric := index . 1 -}}
+resource:
+    name: {{ $metric.name }}
+    target:
+        {{- if $metric.utilization }}
+        type: Utilization
+        averageUtilization: {{ $metric.utilization }}
+        {{- else if $metric.averageValue }}
+        type: AverageValue
+        averageValue: {{ $metric.averageValue }}
+        {{- else if $metric.value }}
+        type: Value
+        value: {{ $metric.value }}
+        {{- end -}}
 {{- end -}}
 
 {{- define "phplibrary.base.hpa" -}}
