@@ -1,6 +1,6 @@
 {{/* https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#metricspec-v2beta2-autoscaling */}}
 
-{{- define "phplibrary.base.service.tpl" -}}
+{{- define "phplibrary.base.hpa.tpl" -}}
 {{- $top := first . }}
 {{- $hpa := index . 1 }}
 apiVersion: autoscaling/v2beta2
@@ -45,4 +45,10 @@ spec:
     {{ if $hpa.behavior }}
     {{ $hpa.behavior }}
     {{ end }}
+{{- end -}}
+
+{{- define "phplibrary.base.hpa" -}}
+{{- $top := first . }}
+{{- $hpa := index . 1 }}
+{{- include "phplibrary.util.merge" (append (list $top $hpa) "phplibrary.base.hpa.tpl") -}}
 {{- end -}}
