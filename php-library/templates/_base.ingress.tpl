@@ -22,7 +22,7 @@ alb.ingress.kubernetes.io/target-type: ip
 alb.ingress.kubernetes.io/security-groups: {{ join "," $ingress.securityGroups | quote }}
 {{- end }}
 alb.ingress.kubernetes.io/tags: {{ include "phplibrary.base.ingress.annotations.tags" (list $top $ingress) | quote }}
-{{- if not (eq $ingress.healthcheck false) }}
+{{- if eq true ($ingress.healthcheck | default false) }}
 alb.ingress.kubernetes.io/healthcheck-path: {{ $ingress.healthcheckPath | default "/healthz" }}
 alb.ingress.kubernetes.io/healthcheck-port: {{ $ingress.healthcheckPort | default 80 | quote }}
 alb.ingress.kubernetes.io/healthcheck-interval-seconds: {{ $ingress.healthcheckInterval | default 30 | quote }}
