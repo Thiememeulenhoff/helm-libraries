@@ -1,7 +1,7 @@
 {{- define "phplibrary.nginxConfiguration" }}
 {{- $top := first . }}
 {{- $configOverrides := index . 1 }}
-{{- $config := merge $configOverrides (fromYaml (include "phplibrary.nginxConfiguration.config" (list $top $configOverrides))) }}
+{{- $config := fromYaml (include "phplibrary.nginxConfiguration.config" (list $top $configOverrides)) }}
 {{- include "phplibrary.util.merge" (append (list $top $config) "phplibrary.base.configMap") }}
 {{- end }}
 
@@ -22,7 +22,7 @@ data:
             add_header X-XSS-Protection "1; mode=block" always;
             add_header X-Content-Type-Options "nosniff" always;
 
-            {{ if not eq ($overrides.cors | default false) false }}
+            {{ if ne ($overrides.cors | default false) false }}
             add_header Access-Control-Allow-Origin "*" always;
             add_header Access-Control-Allow-Credentials "true" always;
             add_header Access-Control-Allow-Methods "GET, POST, DELETE, PUT, OPTIONS" always;
