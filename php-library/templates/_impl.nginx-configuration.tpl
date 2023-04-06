@@ -30,6 +30,14 @@ data:
             {{ end }}
 
             location / {
+                {{ if eq ($overrides.handleOptions | default false) true }}
+                if ($request_method = 'OPTIONS') {
+                    add_header 'Content-Type' 'text/plain charset=UTF-8';
+                    add_header 'Content-Length' 0;
+                    return 204;
+                }
+                {{ end }}
+
                 try_files $uri /index.php$is_args$args;
             }
 
