@@ -1,11 +1,13 @@
 {{- define "phplibrary.nginxConfiguration" }}
 {{- $top := first . }}
 {{- $configOverrides := index . 1 }}
-{{- $config := merge $configOverrides (fromYaml (include "phplibrary.nginxConfiguration.config" $top)) }}
+{{- $config := merge $configOverrides (fromYaml (include "phplibrary.nginxConfiguration.config" (list $top $configOverrides))) }}
 {{- include "phplibrary.util.merge" (append (list $top $config) "phplibrary.base.configMap") }}
 {{- end }}
 
 {{- define "phplibrary.nginxConfiguration.config" }}
+{{- $top := first . }}
+{{- $overrides := last . }}
 name: nginx-configuration
 data:
     http.conf: |-
@@ -19,6 +21,13 @@ data:
             add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
             add_header X-XSS-Protection "1; mode=block" always;
             add_header X-Content-Type-Options "nosniff" always;
+
+            {{ if not eq ($overrides.cors | default false) false }}
+            add_header Access-Control-Allow-Origin "*" always;
+            add_header Access-Control-Allow-Credentials "true" always;
+            add_header Access-Control-Allow-Methods "GET, POST, DELETE, PUT, OPTIONS" always;
+            add_header Access-Control-Allow-Headers "*" always;
+            {{ end }}
 
             location / {
                 try_files $uri /index.php$is_args$args;
