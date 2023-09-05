@@ -1,7 +1,7 @@
 {{- define "phplibrary.base.cronjob.tpl" -}}
 {{- $top := first . }}
 {{- $cronjob := index . 1 }}
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: Job
 metadata:
     name: {{ $cronjob.name }}
