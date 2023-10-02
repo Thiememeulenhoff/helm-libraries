@@ -33,7 +33,7 @@ alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
 alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
 alb.ingress.kubernetes.io/load-balancer-attributes: {{ include "phplibrary.base.ingress.annotations.loadBalancerAttributes" (list $top $ingress) }}
 alb.ingress.kubernetes.io/target-group-attributes: deregistration_delay.timeout_seconds={{ $ingress.deregistrationDelay | default 15 }}
-alb.ingress.kubernetes.io/ssl-policy: {{ $ingress.sslPolicy | default "ELBSecurityPolicy-TLS-1-2-2017-01" }}
+alb.ingress.kubernetes.io/ssl-policy: {{ $ingress.sslPolicy | default "ELBSecurityPolicy-TLS13-1-2-Res-2021-06" }}
 {{- else }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- end }}
