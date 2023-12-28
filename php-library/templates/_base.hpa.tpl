@@ -3,7 +3,7 @@
 {{- define "phplibrary.base.hpa.tpl" -}}
 {{- $top := first . }}
 {{- $hpa := index . 1 }}
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
     name: {{ $hpa.name | default (include "phplibrary.name" $top) }}
