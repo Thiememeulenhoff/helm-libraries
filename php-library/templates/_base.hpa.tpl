@@ -1,4 +1,4 @@
-{{/* https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.21/#metricspec-v2beta2-autoscaling */}}
+{{/* https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#metricspec-v2-autoscaling */}}
 
 {{- define "phplibrary.base.hpa.tpl" -}}
 {{- $top := first . }}
