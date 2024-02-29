@@ -28,6 +28,9 @@ alb.ingress.kubernetes.io/healthcheck-port: {{ $ingress.healthcheckPort | defaul
 alb.ingress.kubernetes.io/healthcheck-interval-seconds: {{ $ingress.healthcheckInterval | default 30 | quote }}
 alb.ingress.kubernetes.io/success-codes: {{ $ingress.healthcheckSuccessCodes | default "200" | quote }}
 {{- end }}
+{{- if $ingress.albgroup | default false }}
+alb.ingress.kubernetes.io/group.name: {{ include "phplibrary.base.ingress.annotations.tags" (list $top $ingress) | quote }}
+{{- end }}
 {{- if $ingress.ssl | default false }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
 alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
@@ -43,11 +46,19 @@ alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- $top := first . }}
 {{- $ingress := index . 1 }}
 
+# <If ALB Group is enabled>
+{{- if $ingress.albgroup | default false }}
+{{- $environment := dict "Environment" ($top.Values.environment | default) }}
+
+{{- $tagsDict := merge $environment }}
+# </If ALB Group is enabled>
+{{- else }}
 {{- $environment := dict "Environment" ($top.Values.environment | default) }}
 {{- $infrastructure := dict "Infrastructure" ($top.Values.infrastructure | default) }}
 {{- $namespace := dict "Namespace" ($top.Release.Namespace | default) }}
 
 {{- $tagsDict := merge $environment $infrastructure $namespace }}
+{{- end }}
 {{- $tagsList := list }}
 
 {{- range $name, $item := $tagsDict }}

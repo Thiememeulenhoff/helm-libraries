@@ -3,3 +3,4 @@ php-example/
 charts/
 *.tgz
 !docs/*.tgz
+.DS_Store
