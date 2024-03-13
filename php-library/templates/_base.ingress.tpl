@@ -28,6 +28,9 @@ alb.ingress.kubernetes.io/healthcheck-port: {{ $ingress.healthcheckPort | defaul
 alb.ingress.kubernetes.io/healthcheck-interval-seconds: {{ $ingress.healthcheckInterval | default 30 | quote }}
 alb.ingress.kubernetes.io/success-codes: {{ $ingress.healthcheckSuccessCodes | default "200" | quote }}
 {{- end }}
+{{- if $ingress.waf | default false }}
+alb.ingress.kubernetes.io/wafv2-acl-arn: {{ $ingress.wafAclArn | quote }}
+{{- end }}
 {{- if $ingress.albgroup | default false }}
 alb.ingress.kubernetes.io/group.name: {{ include "phplibrary.base.ingress.annotations.tags" (list $top $ingress) | quote }}
 {{- end }}
