@@ -31,8 +31,12 @@ alb.ingress.kubernetes.io/success-codes: {{ $ingress.healthcheckSuccessCodes | d
 {{- if $ingress.waf | default false }}
 alb.ingress.kubernetes.io/wafv2-acl-arn: {{ $ingress.wafAclArn | quote }}
 {{- end }}
-{{- if $ingress.albgroup | default false }}
-alb.ingress.kubernetes.io/group.name: {{ include "phplibrary.base.ingress.annotations.tags" (list $top $ingress) | quote }}
+{{- if and (not $ingress.waf) $ingress.albgroup | default false }}
+alb.ingress.kubernetes.io/group.name: {{ $top.Values.environment }}
+{{- end }}
+{{- if and $ingress.waf $ingress.albgroup | default false }}
+alb.ingress.kubernetes.io/group.name: {{ $top.Values.environment }}{{ $ingress.wafAclArn | quote }}
+{{- end }}
 {{- end }}
 {{- if $ingress.ssl | default false }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
