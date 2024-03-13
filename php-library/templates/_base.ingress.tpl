@@ -28,6 +28,16 @@ alb.ingress.kubernetes.io/healthcheck-port: {{ $ingress.healthcheckPort | defaul
 alb.ingress.kubernetes.io/healthcheck-interval-seconds: {{ $ingress.healthcheckInterval | default 30 | quote }}
 alb.ingress.kubernetes.io/success-codes: {{ $ingress.healthcheckSuccessCodes | default "200" | quote }}
 {{- end }}
+{{- if $ingress.waf | default false }}
+alb.ingress.kubernetes.io/wafv2-acl-arn: {{ $ingress.wafAclArn | quote }}
+{{- end }}
+{{- if and (not $ingress.waf) $ingress.albgroup | default false }}
+alb.ingress.kubernetes.io/group.name: {{ $top.Values.environment }}
+{{- end }}
+{{- if and $ingress.waf $ingress.albgroup | default false }}
+alb.ingress.kubernetes.io/group.name: {{ $top.Values.environment }}{{ $ingress.wafAclArn | quote }}
+{{- end }}
+{{- end }}
 {{- if $ingress.ssl | default false }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
 alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
@@ -43,11 +53,26 @@ alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- $top := first . }}
 {{- $ingress := index . 1 }}
 
+# <If WAF and ALB Group is enabled>
+{{- if and $ingress.waf $ingress.albgroup | default false }}
+{{- $environment := dict "Environment" ($top.Values.environment | default) }}
+{{- $wafAclArn := dict "wafAclArn" ($ingress.wafAclArn | default) }}
+
+{{- $tagsDict := merge $environment $wafAclArn }}
+# </If WAF and ALB Group is enabled>
+# <Else If ALB Group is enabled>
+{{- else if and (not $ingress.waf) $ingress.albgroup | default false }}
+{{- $environment := dict "Environment" ($top.Values.environment | default) }}
+
+{{- $tagsDict := $environment }}
+# </Else If ALB Group is enabled>
+{{- else }}
 {{- $environment := dict "Environment" ($top.Values.environment | default) }}
 {{- $infrastructure := dict "Infrastructure" ($top.Values.infrastructure | default) }}
 {{- $namespace := dict "Namespace" ($top.Release.Namespace | default) }}
 
 {{- $tagsDict := merge $environment $infrastructure $namespace }}
+{{- end }}
 {{- $tagsList := list }}
 
 {{- range $name, $item := $tagsDict }}
