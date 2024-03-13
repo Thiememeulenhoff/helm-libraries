@@ -49,12 +49,19 @@ alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- $top := first . }}
 {{- $ingress := index . 1 }}
 
-# <If ALB Group is enabled>
-{{- if $ingress.albgroup | default false }}
+# <If WAF and ALB Group is enabled>
+{{- if and $ingress.waf $ingress.albgroup | default false }}
+{{- $environment := dict "Environment" ($top.Values.environment | default) }}
+{{- $wafAclArn := dict "wafAclArn" ($ingress.wafAclArn | default) }}
+
+{{- $tagsDict := merge $environment $wafAclArn }}
+# </If WAF and ALB Group is enabled>
+# <Else If ALB Group is enabled>
+{{- else if and (not $ingress.waf) $ingress.albgroup | default false }}
 {{- $environment := dict "Environment" ($top.Values.environment | default) }}
 
-{{- $tagsDict := merge $environment }}
-# </If ALB Group is enabled>
+{{- $tagsDict := $environment }}
+# </Else If ALB Group is enabled>
 {{- else }}
 {{- $environment := dict "Environment" ($top.Values.environment | default) }}
 {{- $infrastructure := dict "Infrastructure" ($top.Values.infrastructure | default) }}
