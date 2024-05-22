@@ -67,19 +67,17 @@ resource:
 {{- define "phplibrary.base.hpa.behavior" -}}
 {{- $top := first . }}
 {{- $hpa := index . 1 }}
-{{- range $behavior := $hpa.behavior -}}
 behavior:
     scaleDown:
         policies:
         - type: Pods
-          value: {{ $behavior.scaleDownPods | default 3 }}
-          periodSeconds: {{ $behavior.scaleDownPodsPeriodSeconds | default 180 }}
+          value: {{ $hpa.behavior.scaleDownPods | default 3 }}
+          periodSeconds: {{ $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
         - type: Percent
-          value: {{ $behavior.scaleDownPercentage | default 15 }}
-          periodSeconds: {{ $behavior.scaleDownPercentagePeriodSeconds | default 180 }}
-    selectPolicy: {{ $behavior.selectPolicy | default "Min" }}
-    stabilizationWindowSeconds: {{ $behavior.stabilizationWindowSeconds | default 210 }}
-{{- end -}}
+          value: {{ $hpa.behavior.scaleDownPercentage | default 15 }}
+          periodSeconds: {{ $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
+    selectPolicy: {{ $hpa.behavior.selectPolicy | default "Min" }}
+    stabilizationWindowSeconds: {{ $hpa.behavior.stabilizationWindowSeconds | default 210 }}
 {{- end -}}
 
 {{- define "phplibrary.base.hpa" -}}

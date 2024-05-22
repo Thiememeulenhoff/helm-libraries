@@ -13,8 +13,5 @@ Update the Chart version in `php-library/Chart.yml`.
 Also package the new Chart version like this:
 
 ```shell
-make lint
-helm lint php-library --strict --with-subcharts
-helm package php-library --destination docs/
-helm repo index docs/ --url https://thiememeulenhoff.github.io/helm-libraries
+helm lint php-library --strict --with-subcharts && helm package php-library --destination docs/ && helm repo index docs/ --url https://thiememeulenhoff.github.io/helm-libraries
 ```
