@@ -69,16 +69,26 @@ resource:
 {{- $top := first . }}
 {{- $hpa := index . 1 }}
 behavior:
-    scaleDown:
+    scaleUp:
+        stabilizationWindowSeconds: {{ $hpa.behavior.scaleUpStabilizationWindowSeconds | default 0 }}
+        selectPolicy: {{ $hpa.behavior.scaleUpSelectPolicy | default "Max" }}
         policies:
             - type: Pods
-            value: {{ $hpa.behavior.scaleDownPods | default 3 }}
-            periodSeconds: {{ $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
+              value: {{ $hpa.behavior.scaleUpPods | default 4 }}
+              periodSeconds: {{ $hpa.behavior.scaleUpPodsPeriodSeconds | default 15 }}
             - type: Percent
-            value: {{ $hpa.behavior.scaleDownPercentage | default 15 }}
-            periodSeconds: {{ $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
-        selectPolicy: {{ $hpa.behavior.scaleDownSelectPolicy | default "Min" }}
+              value: {{ $hpa.behavior.scaleUpPercentage | default 100 }}
+              periodSeconds: {{ $hpa.behavior.scaleUpPercentagePeriodSeconds | default 15 }}
+    scaleDown:
         stabilizationWindowSeconds: {{ $hpa.behavior.scaleDownStabilizationWindowSeconds | default 210 }}
+        selectPolicy: {{ $hpa.behavior.scaleDownSelectPolicy | default "Min" }}
+        policies:
+            - type: Pods
+              value: {{ $hpa.behavior.scaleDownPods | default 3 }}
+              periodSeconds: {{ $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
+            - type: Percent
+              value: {{ $hpa.behavior.scaleDownPercentage | default 15 }}
+              periodSeconds: {{ $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
 {{- end -}}
 {{- end -}}
 
