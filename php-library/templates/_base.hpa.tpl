@@ -70,25 +70,25 @@ resource:
 {{- $hpa := index . 1 }}
 behavior:
     scaleUp:
-        stabilizationWindowSeconds: {{ atoi $hpa.behavior.scaleUpStabilizationWindowSeconds | default 1 }}
+        stabilizationWindowSeconds: {{ $hpa.behavior.scaleUpStabilizationWindowSeconds | default 1 }}
         selectPolicy: {{ $hpa.behavior.scaleUpSelectPolicy | default "Max" }}
         policies:
         - type: Pods
-          value: {{ atoi $hpa.behavior.scaleUpPods | default 4 }}
-          periodSeconds: {{ atoi $hpa.behavior.scaleUpPodsPeriodSeconds | default 15 }}
+          value: {{ $hpa.behavior.scaleUpPods | default 4 }}
+          periodSeconds: {{ $hpa.behavior.scaleUpPodsPeriodSeconds | default 15 }}
         - type: Percent
-          value: {{ atoi $hpa.behavior.scaleUpPercentage | default 100 }}
-          periodSeconds: {{ atoi $hpa.behavior.scaleUpPercentagePeriodSeconds | default 15 }}
+          value: {{ $hpa.behavior.scaleUpPercentage | default 100 }}
+          periodSeconds: {{ $hpa.behavior.scaleUpPercentagePeriodSeconds | default 15 }}
     scaleDown:
-        stabilizationWindowSeconds: {{ atoi $hpa.behavior.scaleDownStabilizationWindowSeconds | default 210 }}
+        stabilizationWindowSeconds: {{ $hpa.behavior.scaleDownStabilizationWindowSeconds | default 210 }}
         selectPolicy: {{ $hpa.behavior.scaleDownSelectPolicy | default "Min" }}
         policies:
         - type: Pods
-          value: {{ atoi $hpa.behavior.scaleDownPods | default 3 }}
-          periodSeconds: {{ atoi $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
+          value: {{ $hpa.behavior.scaleDownPods | default 3 }}
+          periodSeconds: {{ $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
         - type: Percent
-          value: {{ atoi $hpa.behavior.scaleDownPercentage | default 15 }}
-          periodSeconds: {{ atoi $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
+          value: {{ $hpa.behavior.scaleDownPercentage | default 15 }}
+          periodSeconds: {{ $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
 {{- end -}}
 
 {{- define "phplibrary.base.hpa" -}}
