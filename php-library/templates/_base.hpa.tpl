@@ -80,6 +80,7 @@ behavior:
     selectPolicy: {{ $hpa.behavior.selectPolicy | default "Min" }}
     stabilizationWindowSeconds: {{ $hpa.behavior.stabilizationWindowSeconds | default 210 }}
 {{- end -}}
+{{- end -}}
 
 {{- define "phplibrary.base.hpa" -}}
 {{- $top := first . }}
