@@ -13,6 +13,7 @@ spec:
     {{- include "phplibrary.base.hpa.scaleTargetRef" (list $top $hpa) | nindent 4 -}}
     {{- include "phplibrary.base.hpa.replicas" (list $top $hpa) | nindent 4 -}}
     {{- include "phplibrary.base.hpa.metrics" (list $top $hpa) | nindent 4 -}}
+    {{- include "phplibrary.base.hpa.behavior" (list $top $hpa) | nindent 4 -}}
     {{- if $hpa.behavior }}{{ $hpa.behavior }}{{ end }}
 {{- end -}}
 
@@ -62,6 +63,23 @@ resource:
         type: Value
         value: {{ $metric.value }}
         {{- end -}}
+{{- end -}}
+
+{{- define "phplibrary.base.hpa.behavior" -}}
+{{- $top := first . }}
+{{- $hpa := index . 1 }}
+behavior:
+    scaleDown:
+        policies:
+        - type: Pods
+          value: {{ $hpa.behavior.scaleDownPods | default 3 }}
+          periodSeconds: {{ $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
+        - type: Percent
+          value: {{ $hpa.behavior.scaleDownPercentage | default 15 }}
+          periodSeconds: {{ $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
+    selectPolicy: {{ $hpa.behavior.selectPolicy | default "Min" }}
+    stabilizationWindowSeconds: {{ $hpa.behavior.stabilizationWindowSeconds | default 210 }}
+{{- end -}}
 {{- end -}}
 
 {{- define "phplibrary.base.hpa" -}}

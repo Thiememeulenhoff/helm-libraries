@@ -2,7 +2,7 @@ apiVersion: v2
 name: phplibrary
 description: A Helm library chart for common packages and PHP applications in Kubernetes.
 type: library
-version: 1.0.8
+version: 1.0.9
 home: https://github.com/Thiememeulenhoff/helm-libraries
 maintainers:
   - name: Youri Lefers
