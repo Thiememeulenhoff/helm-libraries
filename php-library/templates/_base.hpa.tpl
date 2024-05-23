@@ -70,25 +70,25 @@ resource:
 {{- $hpa := index . 1 }}
 behavior:
     scaleUp:
-        stabilizationWindowSeconds: {{ int $hpa.behavior.scaleUpStabilizationWindowSeconds | default 1 }}
+        stabilizationWindowSeconds: {{ atoi $hpa.behavior.scaleUpStabilizationWindowSeconds | default 1 }}
         selectPolicy: {{ $hpa.behavior.scaleUpSelectPolicy | default "Max" }}
         policies:
-            - type: Pods
-              value: {{ int $hpa.behavior.scaleUpPods | default 4 }}
-              periodSeconds: {{ int $hpa.behavior.scaleUpPodsPeriodSeconds | default 15 }}
-            - type: Percent
-              value: {{ int $hpa.behavior.scaleUpPercentage | default 100 }}
-              periodSeconds: {{ int $hpa.behavior.scaleUpPercentagePeriodSeconds | default 15 }}
+        - type: Pods
+          value: {{ atoi $hpa.behavior.scaleUpPods | default 4 }}
+          periodSeconds: {{ atoi $hpa.behavior.scaleUpPodsPeriodSeconds | default 15 }}
+        - type: Percent
+          value: {{ atoi $hpa.behavior.scaleUpPercentage | default 100 }}
+          periodSeconds: {{ atoi $hpa.behavior.scaleUpPercentagePeriodSeconds | default 15 }}
     scaleDown:
-        stabilizationWindowSeconds: {{ int $hpa.behavior.scaleDownStabilizationWindowSeconds | default 210 }}
+        stabilizationWindowSeconds: {{ atoi $hpa.behavior.scaleDownStabilizationWindowSeconds | default 210 }}
         selectPolicy: {{ $hpa.behavior.scaleDownSelectPolicy | default "Min" }}
         policies:
-            - type: Pods
-              value: {{ int $hpa.behavior.scaleDownPods | default 3 }}
-              periodSeconds: {{ int $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
-            - type: Percent
-              value: {{ int $hpa.behavior.scaleDownPercentage | default 15 }}
-              periodSeconds: {{ int $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
+        - type: Pods
+          value: {{ atoi $hpa.behavior.scaleDownPods | default 3 }}
+          periodSeconds: {{ atoi $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
+        - type: Percent
+          value: {{ atoi $hpa.behavior.scaleDownPercentage | default 15 }}
+          periodSeconds: {{ atoi $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
 {{- end -}}
 
 {{- define "phplibrary.base.hpa" -}}
