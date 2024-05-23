@@ -90,7 +90,6 @@ behavior:
               value: {{ $hpa.behavior.scaleDownPercentage | default 15 }}
               periodSeconds: {{ $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
 {{- end -}}
-{{- end -}}
 
 {{- define "phplibrary.base.hpa" -}}
 {{- $top := first . }}
