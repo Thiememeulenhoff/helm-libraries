@@ -71,14 +71,14 @@ resource:
 behavior:
     scaleDown:
         policies:
-        - type: Pods
-          value: {{ $hpa.behavior.scaleDownPods | default 3 }}
-          periodSeconds: {{ $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
-        - type: Percent
-          value: {{ $hpa.behavior.scaleDownPercentage | default 15 }}
-          periodSeconds: {{ $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
-    selectPolicy: {{ $hpa.behavior.selectPolicy | default "Min" }}
-    stabilizationWindowSeconds: {{ $hpa.behavior.stabilizationWindowSeconds | default 210 }}
+            - type: Pods
+            value: {{ $hpa.behavior.scaleDownPods | default 3 }}
+            periodSeconds: {{ $hpa.behavior.scaleDownPodsPeriodSeconds | default 180 }}
+            - type: Percent
+            value: {{ $hpa.behavior.scaleDownPercentage | default 15 }}
+            periodSeconds: {{ $hpa.behavior.scaleDownPercentagePeriodSeconds | default 180 }}
+        selectPolicy: {{ $hpa.behavior.scaleDownSelectPolicy | default "Min" }}
+        stabilizationWindowSeconds: {{ $hpa.behavior.scaleDownStabilizationWindowSeconds | default 210 }}
 {{- end -}}
 {{- end -}}
 
