@@ -57,37 +57,27 @@ alb.ingress.kubernetes.io/group.name: {{ $top.Values.environment }}{{ $ingress.w
 {{- $top := first . }}
 {{- $ingress := index . 1 }}
 
-# <If WAF and ALB Group is enabled>
+{{- $tagsDict := dict }}
 {{- if and $ingress.waf $ingress.albgroup | default false }}
 {{- $environment := dict "Environment" ($top.Values.environment | default) }}
 {{- $wafAclArn := dict "wafAclArn" ($ingress.wafAclArn | default) }}
-
-{{- $tagsDict := merge $environment $wafAclArn }}
-# </If WAF and ALB Group is enabled>
-# <Else If ALB Group is enabled>
+{{- $tagsDict = merge $environment $wafAclArn }}
 {{- else if and (not $ingress.waf) $ingress.albgroup | default false }}
 {{- $environment := dict "Environment" ($top.Values.environment | default) }}
-
-{{- $tagsDict := $environment }}
-# </Else If ALB Group is enabled>
-# <Else>
+{{- $tagsDict = $environment }}
 {{- else }}
 {{- $environment := dict "Environment" ($top.Values.environment | default) }}
 {{- $infrastructure := dict "Infrastructure" ($top.Values.infrastructure | default) }}
 {{- $namespace := dict "Namespace" ($top.Release.Namespace | default) }}
-
-{{- $tagsDict := merge $environment $infrastructure $namespace }}
+{{- $tagsDict = merge $environment $infrastructure $namespace }}
 {{- end }}
-# </Else>
 
 {{- $tagsList := list }}
-
 {{- range $name, $item := $tagsDict }}
 {{- if $item }}
 {{- $tagsList = concat $tagsList (list (printf "%s=%v" $name $item))}}
 {{- end }}
 {{- end }}
-
 {{- join "," $tagsList }}
 {{- end }}
 
