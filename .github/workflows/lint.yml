@@ -5,7 +5,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  helm:
+  lint-php-library:
+    name: 🧪 Lint php-library
     runs-on: ubuntu-latest
 
     steps:
