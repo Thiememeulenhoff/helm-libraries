@@ -66,7 +66,7 @@ containers:
         {{- with .image | default (dict "" "") }}
         image:
             repository: {{ .repository | default "nginx" }}
-            tag: {{ .tag | default "1.24" }}
+            tag: {{ .tag | default "1.26" }}
         {{- end }}
         volumeMounts:
             {{- if $codeCopyEnabled }}
