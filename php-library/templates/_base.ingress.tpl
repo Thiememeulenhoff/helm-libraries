@@ -37,25 +37,47 @@ alb.ingress.kubernetes.io/ssl-policy: {{ $ingress.sslPolicy | default "ELBSecuri
 {{- else }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- end }}
+
+{{- if and $ingress.waf (not $ingress.albgroup) }}
+alb.ingress.kubernetes.io/wafv2-acl-arn: {{ $ingress.wafAclArn | quote }}
+{{- end }}
+
+{{- if and (not $ingress.waf) $ingress.albgroup }}
+alb.ingress.kubernetes.io/group.name: {{ $top.Values.environment }}
+{{- end }}
+
+{{- if and $ingress.waf $ingress.albgroup }}
+alb.ingress.kubernetes.io/wafv2-acl-arn: {{ $ingress.wafAclArn | quote }}
+alb.ingress.kubernetes.io/group.name: {{ $top.Values.environment }}{{ $ingress.wafAclArn | quote }}
+{{- end }}
+
 {{- end }}
 
 {{- define "phplibrary.base.ingress.annotations.tags" -}}
 {{- $top := first . }}
 {{- $ingress := index . 1 }}
 
+{{- $tagsDict := dict }}
+{{- if and $ingress.waf $ingress.albgroup | default false }}
+{{- $environment := dict "Environment" ($top.Values.environment | default) }}
+{{- $wafAclArn := dict "wafAclArn" ($ingress.wafAclArn | default) }}
+{{- $tagsDict = merge $environment $wafAclArn }}
+{{- else if and (not $ingress.waf) $ingress.albgroup | default false }}
+{{- $environment := dict "Environment" ($top.Values.environment | default) }}
+{{- $tagsDict = $environment }}
+{{- else }}
 {{- $environment := dict "Environment" ($top.Values.environment | default) }}
 {{- $infrastructure := dict "Infrastructure" ($top.Values.infrastructure | default) }}
 {{- $namespace := dict "Namespace" ($top.Release.Namespace | default) }}
+{{- $tagsDict = merge $environment $infrastructure $namespace }}
+{{- end }}
 
-{{- $tagsDict := merge $environment $infrastructure $namespace }}
 {{- $tagsList := list }}
-
 {{- range $name, $item := $tagsDict }}
 {{- if $item }}
 {{- $tagsList = concat $tagsList (list (printf "%s=%v" $name $item))}}
 {{- end }}
 {{- end }}
-
 {{- join "," $tagsList }}
 {{- end }}
 
