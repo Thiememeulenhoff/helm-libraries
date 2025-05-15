@@ -2,7 +2,21 @@ apiVersion: v1
 entries:
   phplibrary:
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.104669+02:00"
+    created: "2025-05-15T09:36:32.817024+02:00"
+    description: A Helm library chart for common packages and PHP applications in
+      Kubernetes.
+    digest: 48e16a616cd708941d564d80ed1ffba26bf8097892e90bf7506c03ba753d4d69
+    home: https://github.com/Thiememeulenhoff/helm-libraries
+    maintainers:
+    - email: youri.lefers@x-ip.nl
+      name: Youri Lefers
+    name: phplibrary
+    type: library
+    urls:
+    - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.18.tgz
+    version: 1.0.18
+  - apiVersion: v2
+    created: "2025-05-15T09:36:32.816729+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: bf10b18ae400260b8a5613a001613214ecac9490537987c028b6b8b255312ac5
@@ -16,7 +30,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.17.tgz
     version: 1.0.17
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.10432+02:00"
+    created: "2025-05-15T09:36:32.816249+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: be4747420bf7a33f2e5e02c7a523de2dcab33ccdfcdb5844480d5c40a082561a
@@ -30,7 +44,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.16.tgz
     version: 1.0.16
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.103807+02:00"
+    created: "2025-05-15T09:36:32.815785+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: 2e093e3d0a80445b36a0cd0a38a6ea938ad15b49ae722f33232b7de61a43bd01
@@ -44,7 +58,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.15.tgz
     version: 1.0.15
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.103408+02:00"
+    created: "2025-05-15T09:36:32.815456+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: 8c65ccc5d0c1bab5c5d1e126ace0df4f73a2f7ea280b898e1d7ba2be61e02d6f
@@ -58,7 +72,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.14.tgz
     version: 1.0.14
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.102968+02:00"
+    created: "2025-05-15T09:36:32.815127+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: c645ef9320711474cbb08a18a109a2e57ebd851c7731785dbdcaef96acaf637e
@@ -72,7 +86,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.13.tgz
     version: 1.0.13
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.102386+02:00"
+    created: "2025-05-15T09:36:32.814597+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: 78dbb9c6f86531209adb51edbfd34cba2184d69886533608cd5e73734d76478b
@@ -86,7 +100,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.12.tgz
     version: 1.0.12
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.101822+02:00"
+    created: "2025-05-15T09:36:32.814127+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: ef8cd1943bab57cd2bdfc8964c5e4f0990e06fccce1133dc562e6bb79e3b1a75
@@ -100,7 +114,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.11.tgz
     version: 1.0.11
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.100797+02:00"
+    created: "2025-05-15T09:36:32.813652+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: d468c9f2db815888d25e6110346772c0889bdf57119ea60b33651262323ec0bf
@@ -114,7 +128,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.10.tgz
     version: 1.0.10
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.108126+02:00"
+    created: "2025-05-15T09:36:32.820701+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: 2cf3a1465944ddb3fbc626f7c76a36ce5a9ed7f92b190989067088fa85674172
@@ -128,7 +142,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.9.tgz
     version: 1.0.9
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.107735+02:00"
+    created: "2025-05-15T09:36:32.820366+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: 0d0744396c8e3e0f397a2dcc1a43c8adef2fdc93d5d1f8b599bcbdd780d3b05c
@@ -142,7 +156,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.8.tgz
     version: 1.0.8
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.107241+02:00"
+    created: "2025-05-15T09:36:32.819898+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: 963a96b6e40989da6e8013d085045308c981d415c9ea0a333303d1e9de0e19ce
@@ -156,7 +170,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.7.tgz
     version: 1.0.7
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.106728+02:00"
+    created: "2025-05-15T09:36:32.819426+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: a4c1e6ffd70d1aea66de82f37edd5c60bf81eca248edf6c81dbe077757cf3b05
@@ -170,7 +184,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.6.tgz
     version: 1.0.6
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.10633+02:00"
+    created: "2025-05-15T09:36:32.819109+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: d617d2d09b86c5f59ccc94b36f34331205923c1d0fccfe83b15fc4a873f8a56e
@@ -184,7 +198,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.5.tgz
     version: 1.0.5
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.105963+02:00"
+    created: "2025-05-15T09:36:32.818729+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: 7b8fc1353d014fe1ed200e84f518217518dedfa6eccdd003cba43734160dec60
@@ -198,7 +212,7 @@ entries:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.4.tgz
     version: 1.0.4
   - apiVersion: v2
-    created: "2024-06-06T14:26:36.105606+02:00"
+    created: "2025-05-15T09:36:32.818364+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: de370d48984d282b96e34454f8b6feab2b08cda083a3f630034304de256f5c8e
@@ -213,7 +227,7 @@ entries:
     version: 1.0.3
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2024-06-06T14:26:36.105141+02:00"
+    created: "2025-05-15T09:36:32.81746+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: 8193ddd763bf0a296bd1e494506a49b38b8ee88aa545cdb7a591de491a66ba82
@@ -228,7 +242,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 1.0.1
-    created: "2024-06-06T14:26:36.100259+02:00"
+    created: "2025-05-15T09:36:32.813198+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: 1efa3a10f2a5774dc255713419b6b166b18fbb0478e49ae2362919215d48be6d
@@ -243,7 +257,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-06-06T14:26:36.099839+02:00"
+    created: "2025-05-15T09:36:32.81281+02:00"
     description: A Helm library chart for common packages and PHP applications in
       Kubernetes.
     digest: a7dfbf7a0c4b64564a97e01ebbf7a303e77aa64cebe355aebeca4d27402bf8bd
@@ -256,4 +270,4 @@ entries:
     urls:
     - https://thiememeulenhoff.github.io/helm-libraries/phplibrary-1.0.0.tgz
     version: 1.0.0
-generated: "2024-06-06T14:26:36.099259+02:00"
+generated: "2025-05-15T09:36:32.812335+02:00"
