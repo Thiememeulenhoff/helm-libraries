@@ -10,6 +10,10 @@
 {{- $overrides := last . }}
 {{- $codeCopyEnabled := eq ($overrides.disableCodeCopy | default false) false }}
 name: application
+{{- if $overrides.labels }}
+labels: {{- $overrides.labels | nindent 4 }}
+{{- end }}
+labels:
 annotations:
     ad.datadoghq.com/php.check_names: '["php_fpm"]'
     ad.datadoghq.com/php.init_configs: '[{}]'
