@@ -39,11 +39,13 @@ maxReplicas: {{ .max | default . }}
 {{- define "phplibrary.base.hpa.metrics" -}}
 {{- $top := first . }}
 {{- $hpa := index . 1 }}
-{{- range $metric := $hpa.metrics -}}
 metrics:
+{{- range $metric := $hpa.metrics }}
   - type: {{ $metric.type | default "Resource" }}
-    {{- if eq ($metric.type | default "Resource") "Resource" -}}{{- include "phplibrary.base.hpa.metrics.resource" (list $top $metric) | nindent 4 -}}{{- end -}}
-{{- end -}}
+    {{- if eq ($metric.type | default "Resource") "Resource" -}}
+{{ include "phplibrary.base.hpa.metrics.resource" (list $top $metric) | nindent 4 }}
+    {{- end }}
+{{- end }}
 {{- end -}}
 
 {{- define "phplibrary.base.hpa.metrics.resource" -}}
