@@ -26,8 +26,8 @@ strategy:
     type: {{ $type }}
     {{- if eq $type "RollingUpdate" }}
     rollingUpdate:
-        maxSurge: {{ $deploymentStrategy.maxSurge | default 1 }}
-        maxUnavailable: {{ $deploymentStrategy.maxUnavailable | default 1 }}
+        maxSurge: {{ $deploymentStrategy.maxSurge | default "25%" }}
+        maxUnavailable: {{ $deploymentStrategy.maxUnavailable | default "0" }}
     {{- end }}
 {{- end }}
 
