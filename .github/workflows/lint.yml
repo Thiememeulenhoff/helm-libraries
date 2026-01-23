@@ -10,22 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🕰️ Set timezone Europe/Amsterdam
-      run: |
-        sudo timedatectl set-timezone Europe/Amsterdam
+      - name: 🕰️ Set timezone Europe/Amsterdam
+        run: |
+          sudo timedatectl set-timezone Europe/Amsterdam
 
-    - name: 📥 Checkout
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: 💿 Setup Kubectl
-      uses: azure/setup-kubectl@v4
-    - name: 💿 Setup Helm
-      uses: azure/setup-helm@v4
-      with:
-        version: latest
+      - name: 💿 Setup Kubectl
+        uses: azure/setup-kubectl@v4
+      - name: 💿 Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: latest
 
-    - name: 🧪 Lint php-library
-      run: |
-        helm lint php-library --strict --with-subcharts
+      - name: 🧪 Lint php-library
+        run: |
+          helm lint php-library --strict --with-subcharts
