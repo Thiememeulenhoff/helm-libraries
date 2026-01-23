@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🕰️ Set timezone Europe/Amsterdam
+      - name: 🕰️ Set timezone Europe/Brussels
         run: |
-          sudo timedatectl set-timezone Europe/Amsterdam
+          sudo timedatectl set-timezone Europe/Brussels
 
       - name: 📥 Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
