@@ -70,7 +70,7 @@ containers:
         {{- with .image | default (dict "" "") }}
         image:
             repository: {{ .repository | default "nginx" }}
-            tag: {{ .tag | default "1.28" }}
+            tag: {{ .tag | default "1.30" }}
         {{- end }}
         volumeMounts:
             {{- if $codeCopyEnabled }}
