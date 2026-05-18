@@ -11,7 +11,7 @@
 {{- $codeCopyEnabled := eq ($overrides.disableCodeCopy | default false) false }}
 name: application
 {{- if $overrides.labels }}
-labels: {{- $overrides.labels | nindent 4 }}
+labels: {{- $overrides.labels | toYaml | nindent 4 }}
 {{- end }}
 labels:
 annotations:
