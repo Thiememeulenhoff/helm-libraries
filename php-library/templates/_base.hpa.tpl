@@ -44,6 +44,8 @@ metrics:
   - type: {{ $metric.type | default "Resource" }}
     {{- if eq ($metric.type | default "Resource") "Resource" -}}
 {{ include "phplibrary.base.hpa.metrics.resource" (list $top $metric) | nindent 4 }}
+    {{- else if eq $metric.type "External" -}}
+{{ include "phplibrary.base.hpa.metrics.external" (list $top $metric) | nindent 4 }}
     {{- end }}
 {{- end }}
 {{- end -}}
@@ -64,6 +66,16 @@ resource:
         type: Value
         value: {{ $metric.value }}
         {{- end -}}
+{{- end -}}
+
+{{- define "phplibrary.base.hpa.metrics.external" -}}
+{{- $metric := index . 1 -}}
+external:
+    metric:
+        name: {{ $metric.name }}
+    target:
+        type: Value
+        value: {{ $metric.value | quote }}
 {{- end -}}
 
 {{- define "phplibrary.base.hpa.behavior" -}}
